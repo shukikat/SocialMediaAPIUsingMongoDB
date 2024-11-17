@@ -1,11 +1,11 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 
 
 interface IUser extends Document {
   username: string;
-  email: Date;
-  thoughts: []//something with thoughts;
-  friends: []// something with friends at user model;
+  email: string;
+  thoughts: Types.ObjectId[];
+  friends: Types.ObjectId[];
  
 }
 
@@ -14,20 +14,29 @@ const userSchema = new Schema<IUser>(
   {
     username: {
       type: String,
-      default: false,
-      //need to be unique and trimmed
+      required: true,
+      unique: true,
+      trim: true,  
+      
     },
     email: {
       type: String,
-      //need to unique trimmed match valid email address validator,
+      required: true, 
+      unique: true, 
+      match: [/.+@.+\..+/, 'Please fill a valid email address'],
+     
     },
   
     thoughts: {
-      type: [],
-      //needs to be id values referencing thoughts
+      type: [Types.ObjectId],
+      ref: 'Thought'
+     
       
     },
-   friends
+   friends: {
+    type:[Types.ObjectId], 
+    ref: 'User', 
+  }, 
   },
   {
     toJSON: {

@@ -1,32 +1,72 @@
-import { Schema, Types, Document, ObjectId } from 'mongoose';
+import { Schema, model, Types, Document } from 'mongoose';
 
 interface IThoughts extends Document { 
-  thiughtText: string;
+  thoughtText: string;
   createdAt: Date;
   username: string;
-  reaction:[];
+  reactions:IReaction[];
+}
+
+interface IReaction extends Document { 
+  reactionId: Types.ObjectId;
+  reactionBody: string;
+  username: string;
+  createdAt:Date;
+  
 }
 
 const thoughtSchema = new Schema<IThoughts>(
   {
     thoughtText: {
       type: String,
+      required: true, 
       maxlength: 280, 
       minlength: 1,
     },
     createdAt: {
       type: Date,
       default: Date.now,
-      //need a getter method for time stamp
+      get: (timestamp: Date)=> timestamp.toISOString(),
+      // getter method for time stamp
     },
     
 
-    username{
+    username: {
         type:String, 
+        required: true, 
         //needs to be required
 
     }, 
+
+    reactions: [{
+      reactionId: {
+        type: Schema.Types.ObjectId, 
+        default: ()=> new Types.ObjectId(), 
+      }, 
+
+      reactionBody: {
+        type:String, 
+        required: true, 
+        maxlength: 280, 
+      }, 
+
+      username: {
+        type:String, 
+        required: true, 
+      }, 
+
+      createdAt: {
+        type: Date, 
+        default: Date.now, 
+        get: (timestamp: Date)=> timestamp.toISOString(),
+      }, 
+
+    }
+  
+  ]
+
   },
+
   {
     toJSON: {
       getters: true,
@@ -35,11 +75,13 @@ const thoughtSchema = new Schema<IThoughts>(
   }
 );
 
-thoughtSchema
-  .virtual('reactionCount')
-  // Getter
-  .get(function () {
+
+
+
+thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
   });
 
-export default thoughtSchema;
+  const Thought=model('thoughts', thoughtSchema);
+
+export default Thought;
