@@ -108,7 +108,7 @@ export const removeReaction = async (req: Request, res: Response) => {
     try {
       const thought = await Thought.findByIdAndUpdate(
         req.params.thoughtId,
-        { $pull: { reactions: req.params.reactionId } }, // Use $pull to remove the reaction
+        { $pull: { reactions: {reactionId: req.params.reactionId } }} , // Use $pull to remove the reaction
         { new: true }
       );
   
