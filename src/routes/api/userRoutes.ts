@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const router=Router();
-import {getUsers, getSingleUser, createUser, updateUser, deleteUser, addFriend, removeFriend} from '../../controllers/userController.ts'; 
+import {getUsers, getSingleUser, createUser, updateUser, deleteUser, addFriend, removeFriend} from '../../controllers/userController'; 
 
 // /api/users
 router.route('/').get(getUsers).post(createUser); 

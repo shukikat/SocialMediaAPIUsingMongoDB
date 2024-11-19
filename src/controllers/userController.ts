@@ -45,9 +45,11 @@ import { Request, Response } from 'express';
       }
 
       res.json(user); 
+      return;
       
     } catch (err) {
       res.status(500).json(err);
+      return;
       
     }
   }
@@ -63,10 +65,12 @@ import { Request, Response } from 'express';
       
       if (user.thoughts.length >0)
       await Thought.deleteMany({ _id: { $in: user.thoughts } });
-      res.json({ message: 'User and associated apps deleted!' })
+      res.json({ message: 'User and associated apps deleted!' });
+      return; 
     
     } catch (err) {
       res.status(500).json(err);
+      return;
       
     }
   }
@@ -85,8 +89,10 @@ import { Request, Response } from 'express';
       }
   
       res.json(user);
+      return; 
     } catch (err) {
       res.status(500).json(err);
+      return;
     }
 
 }
@@ -104,8 +110,10 @@ export const removeFriend = async (req: Request, res: Response) => {
       }
   
       res.json(user);
+      return;
     } catch (err) {
       res.status(500).json(err);
+      return;
     }
   }
 

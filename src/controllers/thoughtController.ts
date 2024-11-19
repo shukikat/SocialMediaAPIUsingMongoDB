@@ -2,6 +2,7 @@ import User from '../models/user.js';
 import Thought from '../models/thought.js';
 import { Request, Response } from 'express';
 
+
   export const getThoughts = async(_req: Request, res: Response) => {
     try {
       const thoughts = await Thought.find();
@@ -44,10 +45,12 @@ import { Request, Response } from 'express';
       }
 
       res.status(201).json(thought); 
+      return;
     
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
+        return; 
       }
   }
 
@@ -60,9 +63,11 @@ import { Request, Response } from 'express';
       }
 
       res.json(thought); 
+      return;
       
     } catch (err) {
       res.status(500).json(err);
+      return; 
       
     }
   }; 
@@ -77,9 +82,12 @@ import { Request, Response } from 'express';
       }
       
    
-    res.json({message: 'Thought deleted successfully'}); 
+     res.json({message: 'Thought deleted successfully'}); 
+     return;
+
     } catch (err) {
       res.status(500).json(err);
+      return;
       
     }
   }; 
@@ -97,9 +105,11 @@ import { Request, Response } from 'express';
         return res.status(404).json({ message: 'No thought with that ID' });
       }
   
-      res.json(thought);
+       res.json(thought);
+       return; 
     } catch (err) {
       res.status(500).json(err);
+      return; 
     }
 
 }
@@ -113,11 +123,13 @@ export const removeReaction = async (req: Request, res: Response) => {
       );
   
       if (!thought) {
-        return res.status(404).json({ message: 'No thought with that ID' });
+         res.status(404).json({ message: 'No thought with that ID' });
+         return;
       }
   
       res.json(thought);
     } catch (err) {
       res.status(500).json(err);
+      return;
     }
   }
