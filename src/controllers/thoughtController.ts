@@ -29,7 +29,9 @@ import { Request, Response } from 'express';
 
   // create a new Thought
   export const createThought = async(req: Request, res: Response) => {
-    try {
+    try
+  {
+      //const {thoughtText, username, userId}=req.body
       const thought = await Thought.create(req.body); 
       const user = await User.findOneAndUpdate(
         { _id: req.body.userId },

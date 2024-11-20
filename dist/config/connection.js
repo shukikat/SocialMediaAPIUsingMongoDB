@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
-mongoose.connect('mongodb://127.0.0.1:27017/socialmediaAPP', {
+//install dotenv
+//add the local hosl when 
+//
+mongoose.connect(process.env.MONGODB_URI || '', {
 //useNewUrlParser: true,
 //useUnifiedTopology: true,
 });

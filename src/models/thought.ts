@@ -74,6 +74,7 @@ const thoughtSchema = new Schema<IThoughts>(
   {
     toJSON: {
       getters: true,
+      virtuals: true,
     },
     id: false,
   }

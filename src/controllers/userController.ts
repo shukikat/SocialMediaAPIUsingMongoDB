@@ -2,6 +2,7 @@ import User from '../models/user.js';
 import Thought from '../models/thought.js';
 import { Request, Response } from 'express';
 
+//get all user
   export const getUsers = async(_req: Request, res: Response) => {
     try {
       const users = await User.find();
@@ -10,6 +11,8 @@ import { Request, Response } from 'express';
       res.status(500).json(err);
     }
   }
+
+  //get single user by id
 
   export const getSingleUser = async(req: Request, res: Response) => {
     try {
@@ -36,6 +39,8 @@ import { Request, Response } from 'express';
     }
   }
 
+
+  //find user by :id
   export const updateUser = async (req: Request, res: Response) => {
     try {
       const user = await User.findOneAndUpdate({ _id: req.params.userId },req.body, {new:true});
@@ -54,7 +59,7 @@ import { Request, Response } from 'express';
     }
   }
 
-
+//detee a user by id -- need to also delete all thoughts associated with it 
   export const deleteUser = async (req: Request, res: Response) => {
     try {
       const user = await User.findByIdAndDelete({ _id: req.params.userId });
@@ -75,6 +80,8 @@ import { Request, Response } from 'express';
     }
   }
 
+
+  
 
   export const addFriend = async (req: Request, res: Response) => {
     try {

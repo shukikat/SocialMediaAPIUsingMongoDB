@@ -1,5 +1,6 @@
 import User from '../models/user.js';
 import Thought from '../models/thought.js';
+//get all user
 export const getUsers = async (_req, res) => {
     try {
         const users = await User.find();
@@ -9,6 +10,7 @@ export const getUsers = async (_req, res) => {
         res.status(500).json(err);
     }
 };
+//get single user by id
 export const getSingleUser = async (req, res) => {
     try {
         const user = await User.findOne({ _id: req.params.userId })
@@ -34,6 +36,7 @@ export const createUser = async (req, res) => {
         res.status(500).json(err);
     }
 };
+//find user by :id
 export const updateUser = async (req, res) => {
     try {
         const user = await User.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true });
@@ -48,6 +51,7 @@ export const updateUser = async (req, res) => {
         return;
     }
 };
+//detee a user by id -- need to also delete all thoughts associated with it 
 export const deleteUser = async (req, res) => {
     try {
         const user = await User.findByIdAndDelete({ _id: req.params.userId });

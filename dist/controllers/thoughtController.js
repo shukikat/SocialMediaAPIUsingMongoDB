@@ -27,6 +27,7 @@ export const getSingleThought = async (req, res) => {
 // create a new Thought
 export const createThought = async (req, res) => {
     try {
+        //const {thoughtText, username, userId}=req.body
         const thought = await Thought.create(req.body);
         const user = await User.findOneAndUpdate({ _id: req.body.userId }, { $addToSet: { thoughts: thought.id } }, { new: true });
         if (!user) {
