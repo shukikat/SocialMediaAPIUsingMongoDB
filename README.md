@@ -3,7 +3,7 @@ This is a social media app building an API from scratch for a social network web
 
 # Description
 
-This application was built using with Express, MongoDB, and mongoose using  Typescript. In this application, you are able to add, delete, and get users, abd their thoughts. In additios users can add and delete reactions to their thoughts and users can also add and delete friends. The actions are all completed via making applicable API calls. 
+This application was built using with Express, MongoDB, and mongoose using  Typescript. In this application, you are able to add, delete, and get users, abd their thoughts. In addition,  users can add and delete reactions to their thoughts and users can also add and delete friends. The actions are all completed via making applicable API calls. 
 
 
 ## Installation
@@ -45,6 +45,10 @@ DELETE:
 * Friend
 * Reaction
 
+## Walkthrough Video
+
+[Link to Video](https://drive.google.com/file/d/1TX2CLXDcfFpTxqdeDegcP90GN9MN_XbB/view?usp=sharing)
+
     
 ## License
 
@@ -58,7 +62,7 @@ I also received assistance from my tutor for this project (name can be noted onc
 
  This repository is available to the public. Please feel free to clone this repository, submit a pull request, and add any issues. You can contact me via GitHub or email!
 
-* [Link to Social Media app  repository]()
+* [Link to Social Media app  repository](https://github.com/shukikat/SocialMediaAPIUsingMongoDB)
 
 * [My Email](mailto:kathuriashuki@gmail.com)
 
