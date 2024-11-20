@@ -15,6 +15,34 @@ interface IReaction extends Document {
   
 }
 
+const reactionSchema=new Schema<IReaction> ({
+  reactionId: {
+    type: Schema.Types.ObjectId, 
+    default: ()=> new Types.ObjectId(), 
+  }, 
+
+  reactionBody: {
+    type:String, 
+    required: true, 
+    maxlength: 280, 
+  }, 
+
+  username: {
+    type:String, 
+    required: true, 
+  }, 
+
+  createdAt: {
+    type: Date, 
+    default: Date.now, 
+    //default: ()=> new Date(), 
+    //get: (value: any)=> new Date(value).toISOString(),//
+  }, 
+
+});
+
+
+
 const thoughtSchema = new Schema<IThoughts>(
   {
     thoughtText: {
@@ -23,10 +51,11 @@ const thoughtSchema = new Schema<IThoughts>(
       maxlength: 280, 
       minlength: 1,
     },
+
     createdAt: {
       type: Date,
       default: Date.now,
-      get: (timestamp: Date)=> timestamp.toISOString(),
+      //get: (value: any)=> new Date(value).toISOString(),
       // getter method for time stamp
     },
     
@@ -38,38 +67,14 @@ const thoughtSchema = new Schema<IThoughts>(
 
     }, 
 
-    reactions: [{
-      reactionId: {
-        type: Schema.Types.ObjectId, 
-        default: ()=> new Types.ObjectId(), 
-      }, 
-
-      reactionBody: {
-        type:String, 
-        required: true, 
-        maxlength: 280, 
-      }, 
-
-      username: {
-        type:String, 
-        required: true, 
-      }, 
-
-      createdAt: {
-        type: Date, 
-        default: Date.now, 
-        get: (timestamp: Date)=> timestamp.toISOString(),
-      }, 
-
-    }
-  
-  ]
+    reactions: [reactionSchema], 
 
   },
 
   {
     toJSON: {
       getters: true,
+      virtuals: true,
     },
     id: false,
   }
@@ -82,6 +87,6 @@ thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
   });
 
-  const Thought=model('thoughts', thoughtSchema);
+  const Thought=model<IThoughts>('Thought', thoughtSchema);
 
 export default Thought;

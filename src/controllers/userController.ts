@@ -2,6 +2,7 @@ import User from '../models/user.js';
 import Thought from '../models/thought.js';
 import { Request, Response } from 'express';
 
+//get all user
   export const getUsers = async(_req: Request, res: Response) => {
     try {
       const users = await User.find();
@@ -10,6 +11,8 @@ import { Request, Response } from 'express';
       res.status(500).json(err);
     }
   }
+
+  //get single user by id
 
   export const getSingleUser = async(req: Request, res: Response) => {
     try {
@@ -36,6 +39,8 @@ import { Request, Response } from 'express';
     }
   }
 
+
+  //find user by :id
   export const updateUser = async (req: Request, res: Response) => {
     try {
       const user = await User.findOneAndUpdate({ _id: req.params.userId },req.body, {new:true});
@@ -45,14 +50,16 @@ import { Request, Response } from 'express';
       }
 
       res.json(user); 
+      return;
       
     } catch (err) {
       res.status(500).json(err);
+      return;
       
     }
   }
 
-
+//detee a user by id -- need to also delete all thoughts associated with it 
   export const deleteUser = async (req: Request, res: Response) => {
     try {
       const user = await User.findByIdAndDelete({ _id: req.params.userId });
@@ -63,14 +70,18 @@ import { Request, Response } from 'express';
       
       if (user.thoughts.length >0)
       await Thought.deleteMany({ _id: { $in: user.thoughts } });
-      res.json({ message: 'User and associated apps deleted!' })
+      res.json({ message: 'User and associated apps deleted!' });
+      return; 
     
     } catch (err) {
       res.status(500).json(err);
+      return;
       
     }
   }
 
+
+  
 
   export const addFriend = async (req: Request, res: Response) => {
     try {
@@ -85,8 +96,10 @@ import { Request, Response } from 'express';
       }
   
       res.json(user);
+      return; 
     } catch (err) {
       res.status(500).json(err);
+      return;
     }
 
 }
@@ -104,7 +117,12 @@ export const removeFriend = async (req: Request, res: Response) => {
       }
   
       res.json(user);
+      return;
     } catch (err) {
       res.status(500).json(err);
+      return;
     }
   }
+
+  //need delete thoughts
+  //
